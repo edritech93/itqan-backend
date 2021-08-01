@@ -31,7 +31,7 @@ const model = new Schema({
   },
   isActive: {
     type: Boolean,
-    default: true
+    default: false
   },
   createdDate: {
     type: Date,
