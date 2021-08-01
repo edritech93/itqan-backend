@@ -8,9 +8,9 @@ const connectToDatabase = () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    authSource: 'admin',
-    user: 'itqan_database',
-    pass: '123qwe'
+    // authSource: 'admin',
+    // user: 'itqan_database',
+    // pass: '123qwe'
   }
   mongoose.connect(url, options).then(() => {
     console.log(`Database itqan is connected!`)
