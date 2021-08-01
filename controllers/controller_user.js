@@ -45,7 +45,7 @@ exports.userEdit = function (req, res) {
         updatedDate: Helper.getNowDate()
     }
     ModelUser.findOneAndUpdate({
-        _id: req.userId,
+        _id: req.body.userId,
         is_active: true
     }, dataUpdate, { new: true }, function (error, data) {
         if (error) {
@@ -63,7 +63,7 @@ exports.userEdit = function (req, res) {
 }
 
 exports.userDelete = function (req, res) {
-    ModelUser.findByIdAndRemove({ _id: req.userId }, function (error, data) {
+    ModelUser.findByIdAndRemove({ _id: req.body.userId }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: Helper.getMessageError(error)
