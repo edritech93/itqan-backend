@@ -6,7 +6,7 @@ const Helper = require('../libs/helper')
 const model = new Schema({
   fullName: {
     type: String,
-    required: 'full_name is required'
+    required: 'fullName is required'
   },
   address: {
     type: String,
@@ -14,7 +14,7 @@ const model = new Schema({
   },
   phoneNumber: {
     type: String,
-    required: 'phone_number is required',
+    required: 'phoneNumber is required',
     unique: true
   },
   password: {

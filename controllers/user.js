@@ -28,7 +28,9 @@ exports.userAdd = function (req, res) {
                 message: error.message
             })
         } else if (data) {
-            res.status(200).json(data)
+            res.status(200).json({
+                message: 'User berhasil ditambah'
+            })
         } else {
             res.status(400).json({
                 message: INPUT_FAILED
@@ -52,6 +54,24 @@ exports.userEdit = function (req, res) {
             })
         } else if (data) {
             res.status(200).json(data)
+        } else {
+            res.status(400).json({
+                message: DATA_NOT_FOUND
+            })
+        }
+    })
+}
+
+exports.userDelete = function (req, res) {
+    ModelUser.findByIdAndRemove({ _id: req.user_id }, function (error, data) {
+        if (error) {
+            res.status(400).json({
+                message: Helper.getMessageError(error)
+            })
+        } else if (data) {
+            res.status(200).json({
+                message: 'User berhasil dihapus'
+            })
         } else {
             res.status(400).json({
                 message: DATA_NOT_FOUND
