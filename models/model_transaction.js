@@ -25,10 +25,6 @@ const model = new Schema({
     type: Number,
     required: 'transactionType is required'
   },
-  totalAmount: {
-    type: Number,
-    required: 'totalAmount is required'
-  },
   isActive: {
     type: Boolean,
     default: false
