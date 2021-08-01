@@ -5,7 +5,8 @@ const Helper = require('../libs/helper')
 const { DATA_NOT_FOUND, INPUT_FAILED } = require('../constants')
 
 exports.transactionGet = function (req, res) {
-    ModelTransaction.find({ _id: req.body.userId }, function (error, data) {
+    const userId = req.query && req.query.userId ? req.query.userId : null
+    ModelTransaction.find({ userId: userId }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: error.message
