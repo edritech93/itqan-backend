@@ -5,7 +5,7 @@ const Helper = require('../libs/helper')
 const { DATA_NOT_FOUND, INPUT_FAILED } = require('../constants')
 
 exports.transactionGet = function (req, res) {
-    ModelTransaction.find({ _id: req.user_id }, function (error, data) {
+    ModelTransaction.find({ _id: req.userId }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: error.message
@@ -45,7 +45,7 @@ exports.transactionEdit = function (req, res) {
         updatedDate: Helper.getNowDate()
     }
     ModelTransaction.findOneAndUpdate({
-        _id: req.user_id,
+        _id: req.userId,
         is_active: true
     }, dataUpdate, { new: true }, function (error, data) {
         if (error) {
@@ -63,7 +63,7 @@ exports.transactionEdit = function (req, res) {
 }
 
 exports.transactionDelete = function (req, res) {
-    ModelTransaction.findByIdAndRemove({ _id: req.user_id }, function (error, data) {
+    ModelTransaction.findByIdAndRemove({ _id: req.userId }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: Helper.getMessageError(error)
