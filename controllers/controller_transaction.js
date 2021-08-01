@@ -1,11 +1,11 @@
 'use strict'
 const mongoose = require('mongoose')
-const ModelUser = mongoose.model('ModelUser')
+const ModelTransaction = mongoose.model('ModelTransaction')
 const Helper = require('../libs/helper')
 const { DATA_NOT_FOUND, INPUT_FAILED } = require('../constants')
 
-exports.userGet = function (req, res) {
-    ModelUser.findOne({ _id: req.user_id }, function (error, data) {
+exports.transactionGet = function (req, res) {
+    ModelTransaction.find({ _id: req.user_id }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: error.message
@@ -20,8 +20,8 @@ exports.userGet = function (req, res) {
     })
 }
 
-exports.userAdd = function (req, res) {
-    const newSave = new ModelUser(req.body)
+exports.transactionAdd = function (req, res) {
+    const newSave = new ModelTransaction(req.body)
     newSave.save(function (error, data) {
         if (error) {
             res.status(400).json({
@@ -29,7 +29,7 @@ exports.userAdd = function (req, res) {
             })
         } else if (data) {
             res.status(200).json({
-                message: 'User berhasil ditambah'
+                message: 'Transaction berhasil ditambah'
             })
         } else {
             res.status(400).json({
@@ -39,12 +39,12 @@ exports.userAdd = function (req, res) {
     })
 }
 
-exports.userEdit = function (req, res) {
+exports.transactionEdit = function (req, res) {
     const dataUpdate = {
         ...req.body,
         updatedDate: Helper.getNowDate()
     }
-    ModelUser.findOneAndUpdate({
+    ModelTransaction.findOneAndUpdate({
         _id: req.user_id,
         is_active: true
     }, dataUpdate, { new: true }, function (error, data) {
@@ -62,15 +62,15 @@ exports.userEdit = function (req, res) {
     })
 }
 
-exports.userDelete = function (req, res) {
-    ModelUser.findByIdAndRemove({ _id: req.user_id }, function (error, data) {
+exports.transactionDelete = function (req, res) {
+    ModelTransaction.findByIdAndRemove({ _id: req.user_id }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: Helper.getMessageError(error)
             })
         } else if (data) {
             res.status(200).json({
-                message: 'User berhasil dihapus'
+                message: 'Transaction berhasil dihapus'
             })
         } else {
             res.status(400).json({
