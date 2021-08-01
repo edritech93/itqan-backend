@@ -26,7 +26,14 @@ const Helper = {
   },
   comparePassword: (passwordA, passwordB) => {
     return bcrypt.compareSync(passwordA, passwordB)
-  }
+  },
+  getMessageError: (error) => {
+    if (error.name === 'MongoError' && error.code === 11000) {
+      return DATA_ALREADY_HAVE
+    } else {
+      return error.message
+    }
+  },
 }
 
 module.exports = Helper

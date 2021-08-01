@@ -5,7 +5,7 @@ const Helper = require('../libs/helper')
 const { DATA_NOT_FOUND, INPUT_FAILED } = require('../constants')
 
 exports.userGet = function (req, res) {
-    ModelUser.findOne({ _id: req.user_id }, function (error, data) {
+    ModelUser.find({ }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: error.message

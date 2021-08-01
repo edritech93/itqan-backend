@@ -3,6 +3,7 @@ const TIME_AGE_ACCESS_TOKEN = '1d'
 const TIME_AGE_REFRESH_TOKEN = '7d'
 const DATA_NOT_FOUND = 'Data Tidak Ditemukan'
 const INPUT_FAILED = 'Input Data Gagal'
+const DATA_ALREADY_HAVE = 'Data Sudah Ada, silahkan menggunakan data lain'
 
 const ORDER_STATUS = [
   {
@@ -40,5 +41,6 @@ module.exports = {
   INPUT_FAILED,
   ORDER_STATUS,
   WEB_API,
-  CHANNEL
+  CHANNEL,
+  DATA_ALREADY_HAVE
 }
