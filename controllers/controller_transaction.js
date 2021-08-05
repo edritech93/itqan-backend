@@ -6,7 +6,8 @@ const { DATA_NOT_FOUND, INPUT_FAILED } = require('../constants')
 
 exports.transactionGet = function (req, res) {
     const userId = req.query && req.query.userId ? req.query.userId : null
-    ModelTransaction.find({ userId: userId }, function (error, data) {
+    const transactionType = req.query && req.query.transactionType ? req.query.transactionType : null
+    ModelTransaction.find({ userId: userId, transactionType: transactionType }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: error.message
