@@ -3,6 +3,7 @@ const app = express()
 const PORT = 8080;
 const ModelUser = require('./models/model_user')
 const ModelTransaction = require('./models/model_transaction')
+const ModelTransactionTotal = require('./models/model_transaction_total')
 const connectToDatabase = require('./libs/database')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -16,9 +17,11 @@ app.use(cors())
 
 const routeUser = require('./routes/route_user')
 const routeTransaction = require('./routes/route_transaction')
+const routeTransactionTotal = require('./routes/route_transaction_total')
 
 routeUser(app)
 routeTransaction(app)
+routeTransactionTotal(app)
 
 app.use(function (req, res) {
   res.status(404).send({ url: req.originalUrl + ' not found' })
