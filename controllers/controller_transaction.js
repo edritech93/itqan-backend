@@ -1,6 +1,7 @@
 'use strict'
 const mongoose = require('mongoose')
 const ModelTransaction = mongoose.model('ModelTransaction')
+const ModelTransactionTotal = mongoose.model('ModelTransactionTotal')
 const Helper = require('../libs/helper')
 const { DATA_NOT_FOUND, INPUT_FAILED } = require('../constants')
 
@@ -23,6 +24,33 @@ exports.transactionGet = function (req, res) {
 }
 
 exports.transactionAdd = function (req, res) {
+    const { userId, amount } = req.body;
+
+    ModelTransactionTotal.findOne({ userId: userId }, function (error, data) {
+        if (error) {
+        } else if (data) {
+            const dataUpdate = {
+                totalAmount: data.totalAmount + parseInt(amount),
+                updatedDate: Helper.getNowDate()
+            }
+            ModelTransactionTotal.findOneAndUpdate({ userId: userId }, dataUpdate, { new: true }, function (error, data) {
+                if (error) {
+                } else if (data) {
+                } else {
+                }
+            })
+        } else {
+            const objSave = { userId: userId, totalAmount: amount }
+            const newSave = new ModelTransactionTotal(objSave)
+            newSave.save(function (error, data) {
+                if (error) {
+                } else if (data) {
+                } else {
+                }
+            })
+        }
+    })
+
     const newSave = new ModelTransaction(req.body)
     newSave.save(function (error, data) {
         if (error) {
