@@ -3,12 +3,16 @@ const mongoose = require('mongoose')
 const ModelTransaction = mongoose.model('ModelTransaction')
 const ModelTransactionTotal = mongoose.model('ModelTransactionTotal')
 const Helper = require('../libs/helper')
-const { DATA_NOT_FOUND, INPUT_FAILED, TYPE_TRANSACTION } = require('../constants')
+const { DATA_NOT_FOUND, INPUT_FAILED, TYPE_TRANSACTION, ALL_DATA } = require('../constants')
 
 exports.transactionGet = function (req, res) {
     const userId = req.query && req.query.userId ? req.query.userId : null
     const transactionType = req.query && req.query.transactionType ? req.query.transactionType : null
-    ModelTransaction.find({ userId: userId, transactionType: transactionType }, function (error, data) {
+    let objFind = { userId: userId }
+    if (transactionType != ALL_DATA.id)    {
+        objFind = {...objFind, transactionType: transactionType}
+    }
+    ModelTransaction.find(objFind, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: error.message

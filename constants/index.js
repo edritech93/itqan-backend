@@ -15,6 +15,11 @@ const TYPE_TRANSACTION = [
   },
 ]
 
+const ALL_DATA = {
+  id: 999,
+  text: 'Semua'
+}
+
 module.exports = {
   PRIVATE_KEY,
   TIME_AGE_ACCESS_TOKEN,
@@ -22,5 +27,6 @@ module.exports = {
   DATA_NOT_FOUND,
   INPUT_FAILED,
   DATA_ALREADY_HAVE,
-  TYPE_TRANSACTION
+  TYPE_TRANSACTION,
+  ALL_DATA
 }
