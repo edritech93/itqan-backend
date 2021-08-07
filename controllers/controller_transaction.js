@@ -27,8 +27,15 @@ exports.transactionGet = function (req, res) {
     })
 }
 
-exports.transactionAdd = function (req, res) {
-    const { userId } = req.body;
+exports.transactionAdd = async function (req, res) {
+    const { userId, transactionType, amount } = req.body;
+    const totalSaldo = await getTotalSaldoByUserId(userId)
+    if (transactionType === TYPE_TRANSACTION[1].id && totalSaldo < amount) {
+        res.status(400).json({
+            message: "Saldo Anda tidak mencukupi"
+        })
+        return;
+    }
     const newSave = new ModelTransaction(req.body)
     newSave.save(function (error, data) {
         if (error) {
@@ -49,10 +56,7 @@ exports.transactionAdd = function (req, res) {
 }
 
 async function reloadDataSaldo(userId) {
-    const totalIncome = await getTotalIncomeSpending(userId, TYPE_TRANSACTION[0].id).catch(() => 0);
-    const totalSpending = await getTotalIncomeSpending(userId, TYPE_TRANSACTION[1].id).catch(() => 0);
-    const totalSaldo = totalIncome - totalSpending
-
+    const totalSaldo = await getTotalSaldoByUserId(userId)
     ModelTransactionTotal.findOne({ userId: userId }, function (error, data) {
         if (error) {
             console.log('reloadDataSaldo => ', error.message);
@@ -72,6 +76,13 @@ async function reloadDataSaldo(userId) {
             })
         }
     })
+}
+
+async function getTotalSaldoByUserId(userId)  {
+    const totalIncome = await getTotalIncomeSpending(userId, TYPE_TRANSACTION[0].id).catch(() => 0);
+    const totalSpending = await getTotalIncomeSpending(userId, TYPE_TRANSACTION[1].id).catch(() => 0);
+    const totalSaldo = totalIncome - totalSpending
+    return totalSaldo
 }
 
 function handleSaveUpdateSaldo(error, data)    {
