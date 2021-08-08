@@ -25,7 +25,7 @@ exports.userAdd = function (req, res) {
     newSave.save(function (error, data) {
         if (error) {
             res.status(400).json({
-                message: error.message
+                message: Helper.getMessageError(error)
             })
         } else if (data) {
             res.status(200).json({
