@@ -44,10 +44,7 @@ exports.userEdit = function (req, res) {
         ...req.body,
         updatedDate: Helper.getNowDate()
     }
-    ModelUser.findOneAndUpdate({
-        _id: req.body.userId,
-        is_active: true
-    }, dataUpdate, { new: true }, function (error, data) {
+    ModelUser.findOneAndUpdate({_id: req.body.userId}, dataUpdate, { new: true }, function (error, data) {
         if (error) {
             res.status(400).json({
                 message: error.message
