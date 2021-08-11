@@ -18,6 +18,7 @@ exports.userGet = function (req, res) {
             })
         }
     })
+    .sort({ fullName: 1 })
 }
 
 exports.userAdd = function (req, res) {

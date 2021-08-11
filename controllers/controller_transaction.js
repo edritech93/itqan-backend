@@ -25,6 +25,7 @@ exports.transactionGet = function (req, res) {
             })
         }
     })
+    .sort({ transactionCode: 1 })
 }
 
 exports.transactionAdd = async function (req, res) {
